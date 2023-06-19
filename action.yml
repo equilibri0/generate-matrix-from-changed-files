@@ -1,0 +1,15 @@
+name: 'Generate Matrix from Changed Files'
+description: 'Generates a matrix for GitHub Actions from the changed files.'
+inputs:
+  changed-files:
+    description: 'A comma-separated list of changed files.'
+    required: true
+  path-prefix:
+    description: 'The prefix to remove from each file path.'
+    required: true
+outputs:
+  matrix:
+    description: 'The generated matrix.'
+runs:
+  using: 'node12'
+  main: 'action/index.js'
