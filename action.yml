@@ -4,7 +4,7 @@ inputs:
   all_changed_files:
     description: 'All changed files'
     required: true
-  path-prefix:
+  path_prefix:
     description: 'Path prefix to strip from changed files'
     required: false
     default: ''
