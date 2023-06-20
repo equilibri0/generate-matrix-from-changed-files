@@ -10,7 +10,7 @@ function run() {
     for (const file of changedFiles) {
       const parts = file.split('/');
       if (parts.length > 2) {
-        const directory = parts[2]; // Get the directory name directly
+        const directory = parts.slice(2, -1).join('/'); // Get the directory name by removing the last part of the file path
         if (directory) {
           const fullPath = pathPrefix ? `${pathPrefix}/${directory}` : directory; // Apply path prefix if provided
           directories.push(fullPath);
