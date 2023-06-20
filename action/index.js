@@ -5,20 +5,21 @@ function run() {
     const changedFilesString = core.getInput('all_changed_files');  // Get changed files from the changed-files action
     const changedFiles = changedFilesString.split(' ');  // Split into an array of file paths
     const pathPrefix = core.getInput('path_prefix');
-    const directories = [];
+    const directories = new Set();
 
     for (const file of changedFiles) {
       const parts = file.split('/');
-      if (parts.length > 3) {
-        const directory = parts[3]; // Get the directory name (assuming the structure is aws/app/stacks/directory/file)
+      if (parts.length > 2) {
+        const directory = parts[2]; // Get the directory name directly
         if (directory) {
-          const fullPath = pathPrefix ? `${pathPrefix}/${directory}` : directory; // Apply path prefix if provided
-          directories.push(fullPath);
+          directories.add(directory);
         }
       }
     }
 
-    const matrix = { element: directories };
+    const sanitizedDirectories = Array.from(directories);
+
+    const matrix = { element: sanitizedDirectories };
 
     core.setOutput('matrix', JSON.stringify(matrix));
   } catch (error) {
